@@ -66,7 +66,8 @@ public class BooksService {
 
 		// JSPに渡すデータを設定する
 
-		String sql = "SELECT case WHEN rent.rent_date is null THEN '貸出可' ELSE '貸出中' END from books LEFT OUTER JOIN rent on books.id = rent.id where books.id ="+ bookId;
+		String sql = "SELECT case WHEN rent.rent_date is null THEN '貸出可' ELSE '貸出中' END from books LEFT OUTER JOIN rent on books.id = rent.id where books.id ="
+				+ bookId;
 
 		String rentBookDetailsInfo = jdbcTemplate.queryForObject(sql, String.class);
 
@@ -148,7 +149,7 @@ public class BooksService {
 	}
 
 	/**
-	 * 入力された文字列が、タイトルに含まれている書籍情報を取得
+	 * 入力された文字列が、タイトルに含まれている書籍情報を取得（部分一致）
 	 *
 	 * @return 検索書籍リスト
 	 */
@@ -161,6 +162,21 @@ public class BooksService {
 						+ title + "%';", new BookInfoRowMapper());
 
 		return getedSearchBooksList;
+
+	}
+
+	/**
+	 * 入力された文字列が、タイトルに含まれている書籍情報を取得（完全一致）
+	 *
+	 * @return 検索書籍リスト
+	 */
+	public List<BookInfo> getFullSearchBooksList(String title) {
+
+		List<BookInfo> getedFullSearchBooksList = jdbcTemplate
+				.query("SELECT id, title, author, publisher, publish_date, thumbnail_url FROM books where title = '"
+						+ title + "';", new BookInfoRowMapper());
+
+		return getedFullSearchBooksList;
 
 	}
 
