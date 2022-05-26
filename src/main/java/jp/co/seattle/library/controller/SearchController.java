@@ -28,15 +28,23 @@ public class SearchController {
 	 * 検索ボタンからホーム画面に戻るページ
 	 * 
 	 * @param model
+	 * @param radiobutton
+	 * @param title
 	 * @return
 	 */
+	
 	@Transactional
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchBooks(Locale locale, @RequestParam("title")String title, Model model) {
+	public String searchBooks(Locale locale, @RequestParam("radiobutton")int radiobutton, @RequestParam("title") String title, Model model) { 
 		// デバッグ用ログ
 		logger.info("Welcome createAccount! The client locale is {}.", locale);
 		
-		model.addAttribute("bookList", booksService.getSearchBooksList(title));
+		if(radiobutton == 0){
+			model.addAttribute("bookList", booksService.getSearchBooksList(title));
+		} else {
+			model.addAttribute("bookList", booksService.getFullSearchBooksList(title));
+		}
+		
 		return "home";
 
 	}

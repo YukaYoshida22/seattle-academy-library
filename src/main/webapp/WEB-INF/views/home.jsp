@@ -28,9 +28,10 @@
         <h1>Home</h1>
         <form action="search" method="post" style="text-align: right">
             <input class="search1" type="search" name="title" placeholder="キーワードを入力" autocomplete="off">
+            <input type="radio" name="radiobutton" value="0">部分一致<input type="radio" name="radiobutton" value="1">完全一致
             <button type="submit" id="search-btn" class="btn_searchBook">検索</button>
         </form>
-        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegistBooks" class="btn_bulk_book">一括登録</a>
+        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegistBooks" class="btn_bulk_book">一括登録</a> <a href="<%=request.getContextPath()%>/rentLog" class="btn_book_log">貸出履歴一覧</a>
         <div class="content_body">
             <c:if test="${empty bookList}">
                 <div class="error_msg">一致する書籍がありません。</div>
